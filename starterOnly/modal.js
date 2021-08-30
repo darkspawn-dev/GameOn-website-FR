@@ -1,17 +1,25 @@
 function editNav() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
-  } else {
-    x.className = "topnav";
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+      x.className += " responsive";
+    } else {
+      x.className = "topnav";
+    }
   }
+  
+  // DOM Elements
+  const modalbg = document.querySelector(".bground");
+  const modalBtn = document.querySelectorAll(".modal-btn");
+  const formData = document.querySelectorAll(".formData");
+  
+  // launch modal event
+  modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
+  
+  // launch modal form
+  function launchModal() {
+    modalbg.style.display = "block";
 }
-
-// DOM Elements
-const modalbg = document.querySelector(".bground");
-const modalBtn = document.querySelectorAll(".modal-btn");
-const formData = document.querySelectorAll(".formData");
-
+  
 // modal
 const closeModalBtn = document.querySelectorAll("#close");
 
@@ -22,18 +30,12 @@ const email = document.getElementById("email");
 const birthDate = document.getElementById("birthdate");
 const quantity = document.getElementById("quantity");
 
-const radio = document.querySelectorAll("input");
-const terms = document.getElementById("checkbox1");
+const radio = document.querySelector('input[name="location"]:checked');
 
-//const city = document.querySelectorAll('input[name="location"]');
-
-// launch modal event
-modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-
-// launch modal form
-function launchModal() {
-  modalbg.style.display = "block";
-}
+const getSelectedValue = document.querySelector(
+  'input[name="location"]:checked'
+);
+const checkTerms = document.getElementById("checkbox1");
 
 // fermer la modal
 closeModalBtn.forEach((elt) => elt.addEventListener("click", closeModal));
@@ -47,15 +49,6 @@ form.addEventListener("submit", (e) => {
 });
 
 function validate() {
-  // terms
-  if (checkbox1.checked === "") {
-    let myError = document.getElementById("errorcheckbox");
-    myError.innerHTML = " Veuillez accepetez les conditions d'utilisations";
-    myError.style.color = "red";
-    return false;
-  } else {
-    document.getElementById("errorcheckbox").innerHTML = "";
-  }
   // si la valeur du champ n'est pas vide
   if (firstName.value.length < 2) {
     firstName.classList.add("borderRed");
@@ -115,15 +108,24 @@ function validate() {
   }
 
   // erreur ville
-  let getSelectedValue = document.querySelector(
-    'input[name="location"]:checked'
-  );
-  if (getSelectedValue != null) {
-    return true;
-  } else {
+
+  if (radio === null) {
     let error = document.getElementById("errorcity");
     error.innerHTML = "Veuillez selectionner une ville";
     error.style.color = "red";
     return false;
+  } else {
+    document.getElementById("errorcity").innerHTML = "";
   }
-}
+
+    // check terms
+    if (checkTerms.checked === false) {
+      let error = document.getElementById("errorcheckbox");
+      error.innerHTML = "Veuillez accepter nos conditions d'utilisations";
+      error.style.color = "red";
+      return false;
+    } else {
+      document.getElementById("errorcheckbox").innerHTML = "";
+    }
+    return true
+  }
