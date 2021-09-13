@@ -78,32 +78,6 @@ img {
   }
 }
 
-@media screen and (max-width: 768px) {
-  .topnav.responsive {
-    position: relative;
-  }
-  .topnav.responsive .icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-  .topnav.responsive a {
-    float: none;
-    display: block;
-    text-align: left;
-  }
-}
-
-@media screen and (max-width: 540px) {
-  .topnav a {
-    display: none;
-  }
-  .topnav a.icon {
-    float: right;
-    display: block;
-    margin-top: -15px;
-  }
-}
 
 main {
   font-size: 130%;
@@ -183,6 +157,7 @@ main {
   position: relative;
   color: #fff;
   padding-top: 10px;
+  
 }
 
 .modal-body {
@@ -195,6 +170,7 @@ label {
   font-size: 17px;
   font-weight: normal;
   display: inline-block;
+  margin-top: 5px;
   margin-bottom: 11px;
 }
 input {
@@ -481,7 +457,38 @@ footer {
   padding-right: 2vw;
   margin: 0 20px;
 }
+@media screen and (max-width: 768px) {
+  .topnav.responsive {
+    position: relative;
+  }
+  .topnav.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+}
+@media screen and (max-width: 540px) {
+  .topnav a {
+    display: none;
+  }
+  .topnav a.icon {
+    float: right;
+    display: block;
+    margin-top: -5px;
+  }
+}
 @media screen and (max-width: 800px) {
+
+  .header-logo img {
+    width: 60%;
+    margin-left: 5%;
+    margin-top: 2%;
+  }
   .hero-section {
     display: block;
     box-shadow: unset;
@@ -489,7 +496,8 @@ footer {
   .hero-content {
     background: #fff;
     color: #000;
-    padding: 20px;
+    padding: 0;
+    min-width: 100%;
   }
   .hero-content::after {
     content: unset;
@@ -498,13 +506,16 @@ footer {
     display: none;
   }
   .hero-headline {
-    font-size: 4.5rem;
-    white-space: normal;
+    font-size: 2.5rem;
+    font-weight: bold;
+
   }
   .hero-text {
-    width: unset;
-    font-size: 1.5rem;
+    width: 100%;
+    font-size: 0.9rem;
+    margin-top: 30px;
   }
+
   .hero-img img {
     border-radius: 10px;
     margin-top: 40px;
@@ -537,3 +548,14 @@ footer {
 .borderRed {
   border: 2px solid red;
 }
+
+/* submit ok */
+
+#confirmation {
+  display: flex;
+  align-items: center;
+  height: 80%;
+  margin: 0 50px;
+  padding-bottom: 200px;
+}
+
