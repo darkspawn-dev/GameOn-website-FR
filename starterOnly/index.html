@@ -14,21 +14,21 @@
   <body>
     <div class="topnav" id="myTopnav">
       <div class="header-logo">
-      <img alt="logo" src="Logo.png" width="auto" height="auto" />
+      <img alt="logo" src="Logo.png"/>
+      </div>
+      <div class="main-navbar">
+        <div class="navlinks">
+          <a href="#" class="active"><span>Accueil</span></a>
+          <a href="#"><span>Détails de l'évènement</span></a>
+          <a href="#"><span>À propos</span></a>
+          <a href="#"><span>Contact</span></a>
+          <a href="#"><span>Évènements passés</span></a>
+        </div>
+        <a href="javascript:void(0);" class="icon" onclick="editNav()">
+          <i class="fa fa-bars"></i>
+        </a>
+      </div>
     </div>
-    <div class="main-navbar">
-      
-      <a href="#" class="active"><span>Accueil</span></a>
-      <a href="#"><span>Détails de l'évènement</span></a>
-      <a href="#"><span>À propos</span></a>
-      <a href="#"><span>Contact</span></a>
-      <a href="#"><span>Évènements passés</span></a>
-      <a href="javascript:void(0);" class="icon" onclick="editNav()">
-        <i class="fa fa-bars"></i>
-      </a>
-    </div>
-    </div>
-  </div>
     <main>
       <div class="hero-section">
         <div class="hero-content">
@@ -55,13 +55,14 @@
       <div class="bground">
         <div class="content">
           <span class="close"></span>
-          <span class="close" id="close"></span>
           <div class="modal-body">
             <form
+              id= "reserve"
               name="reserve"
               action="index.html"
               method="get"
               onsubmit="return validate();"
+              novalidate
             >
               <div
                 class="formData">
@@ -70,22 +71,22 @@
                   class="text-control"
                   type="text"
                   id="first"
-                  name="first" 
-                  minlength="2" 
+                  name="first"
+                  minlength="2"
                 /><br>
-                <span class="error" id="errorfirst"></span></p>
               </div>
+              <div id="errorfirst" class="error"></div>
               <div
                 class="formData">
                 <label for="last">Nom</label><br>
                 <input
                   class="text-control"
                   type="text"
-                  id="last" 
-                  name="last" 
-                  minlength="2" 
+                  id="last"
+                  name="last"
+                  minlength="2"
                 /><br>
-                <span class="error" id="errorlast"></span>
+                <div id="errorlast" class="error"></div>
               </div>
               <div
                 class="formData">
@@ -96,26 +97,25 @@
                   id="email"
                   name="email"
                 /><br>
-                <span class="error" id="errormail"></span> <!--Affichage erreur sous input-->
+                <div id="errormail" class="error"></div>
               </div>
               <div
                 class="formData">
                 <label for="birthdate">Date de naissance</label><br>
-                <span class="error" id="errorbirthDate"></span>
                 <input
                   class="text-control"
                   type="date"
                   id="birthdate"
                   name="birthdate"
                 /><br>
+                <div id="errorbirthdate" class="error"></div>
               </div>
               <div
                 class="formData">
-                <label>À combien de tournois GameOn avez-vous déjà participé ?</label><br>
+                <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
                 <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99">
-                <span class="error" id="errorquantity"></span>
+                <div id="errorquantity" class="error"></div>
               </div>
-              
               <p class="text-label">Quelles villes ?</p>
               <div
                 class="formData">
@@ -130,7 +130,6 @@
                   <span class="checkbox-icon"></span>
                   New York</label
                 >
-
                 <input
                   class="checkbox-input"
                   type="radio"
@@ -186,10 +185,11 @@
                   <span class="checkbox-icon"></span>
                   Portland</label
                 >
+                <div id="errorcity" class="error"></div>
               </div>
-              <span class="error" id="errorcity"></span>
+
               <div
-                class="formData" data-error="Vous devez acceptez les conditions" data-error-visible="false">
+                class="formData">
                 <input
                   class="checkbox-input"
                   type="checkbox"
@@ -199,24 +199,32 @@
                   <span class="checkbox-icon"></span>
                   J'ai lu et accepté les conditions d'utilisation.
                 </label>
-                <br>
+                <div id="errorcheckbox" class="error"></div>
+
                 <input class="checkbox-input" type="checkbox" id="checkbox2" />
                 <label class="checkbox2-label" for="checkbox2">
                   <span class="checkbox-icon"></span>
-                  Je Je souhaite être prévenu des prochains évènements.
+                  Je souhaite être prévenu des prochains évènements.
                 </label>
                 <br>
               </div>
-              <span class="error" id="errorcheckbox"></span>
               <input
-                class="btn-submit"
+                id = "submit"
+                class="button btn-submit"
                 type="submit"
-                class="button"
                 value="C'est parti"
-                onclick="valider()"
               />
             </form>
           </div>
+          <div id="confirmation"><p class="confirm">Merci ! 
+            <br>Votre réservation a bien été reçue.</p>
+          </div>
+          <input
+            id = "closeBtnRed"
+            class="button btn-submit"
+            type="button"
+            value="Fermer"
+          />
         </div>
       </div>
     </main>
