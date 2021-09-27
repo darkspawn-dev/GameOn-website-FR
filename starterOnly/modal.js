@@ -1,134 +1,168 @@
+// DOM Elements
+const modalbg = document.querySelector(".bground");
+const modalBtn = document.querySelectorAll(".modal-btn");
+const formData = document.querySelectorAll(".formData");
+
+// DOM Elements input
+// on recupere tous les élements du formulaire
+const first = document.getElementById("first");
+const last = document.getElementById("last");
+const email = document.getElementById("email");
+const birthdate = document.getElementById("birthdate");
+const quantity = document.getElementById("quantity");
+const location2 = document.getElementsByName("location");
+const checkTerms = document.getElementById("checkbox1");
+
+const closeBtn = document.querySelector(".close");
+const submitBtn = document.querySelector(".btn-submit");
+const form = document.getElementById("reserve");
+const closeBtnRed = document.getElementById("closeBtnRed");
+const confirmation = document.getElementById("confirmation");
+
+// function
 function editNav() {
-  var x = document.getElementById("myTopnav");
+  let x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
     x.className += " responsive";
   } else {
     x.className = "topnav";
   }
 }
-
-// DOM Elements
-const modalbg = document.querySelector(".bground");
-const modalBtn = document.querySelectorAll(".modal-btn");
-const formData = document.querySelectorAll(".formData");
-
-// launch modal event
-modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-
-// launch modal form
+// ouverture modal formulaire
 function launchModal() {
   modalbg.style.display = "block";
 }
-
-
-/*********************** Fermer modal ***********************/
-// modal
-const closeModalBtn = document.querySelectorAll("#close");
-
-// fermer la modal
-closeModalBtn.forEach((elt) => elt.addEventListener("click", closeModal));
+// fermeture modal formulaire
 function closeModal() {
-modalbg.style.display = "none";
+  modalbg.style.display = "none";
 }
+// reset formulaire
+//function resetForm() {
+//  document.getElementById("closeBtnRed").reset();
+// }
 
-/*********************** Champs ***********************/
-// Entrées formulaire
-const firstName = document.getElementById("first");
-const lastName = document.getElementById("last");
-const email = document.getElementById("email");
-const birthDate = document.getElementById("birthdate");
-const quantity = document.getElementById("quantity");
+// Event
+// ouverture modal event
+modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
-const radio = document.querySelector('input[name="location"]:checked');
+// fermeture modal event
+closeBtn.addEventListener("click", closeModal);
 
-const getSelectedValue = document.querySelector(
-'input[name="location"]:checked'
-);
-const checkTerms = document.getElementById("checkbox1");
+closeBtnRed.style.display = "none";
+confirmation.style.display = "none";
 
-// Verification
-form.addEventListener("submit", (e) => {
-e.preventDefault();
-});
+let formValid = false;
 
-function validate() {
-// si la valeur du champ n'est pas vide
-if (firstName.value.length < 2) {
-  firstName.classList.add("borderRed");
-  let myError = document.getElementById("errorfirst");
-  myError.innerHTML = " Veuillez saisir 2 caractères minimum";
-  myError.style.color = "red";
-  return false;
-} else {
-  document.getElementById("errorfirst").innerHTML = "";
-  firstName.classList.remove("borderRed");
-}
+// Verifications
+// verification des inputs
+function checkInputs() {
 
-// erreur  input si nom vide
-if (lastName.value.length < 2) {
-  lastName.classList.add("borderRed");
-  let error = document.getElementById("errorlast");
-  error.innerHTML = "Veuillez saisir 2 caractères minimum";
-  error.style.color = "red";
-  return false;
-} else {
-  document.getElementById("errorlast").innerHTML = "";
-  lastName.classList.remove("borderRed");
-}
+  // verification prénom
+  let verifName = /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{1,}$/;
+  if (verifName.exec(first.value) === null || first.length < 2) {
+    first.classList.add("borderRed");
+    let myError = document.getElementById("errorfirst");
+    myError.innerHTML = " Veuillez saisir 2 caractères minimum";
+    myError.style.color = "red";
+    return formValid === false;
+  } else {
+    document.getElementById("errorfirst").innerHTML = "";
+    first.classList.remove("borderRed");
+  }
 
-// erreur input si mail vide
-if (email.value === "") {
-  email.classList.add("borderRed");
-  let error = document.getElementById("errormail");
-  error.innerHTML = "Veuillez entrez une adresse mail valide";
-  error.style.color = "red";
-  return false;
-} else {
-  document.getElementById("errormail").innerHTML = "";
-  email.classList.remove("borderRed");
-}
-
-//erreur si birthdate vide
-if (birthDate.value === "") {
-  birthDate.classList.add("borderRed");
-  let error = document.getElementById("errorbirthDate");
-  error.innerHTML = " Date de naissance est vide";
-  error.style.color = "red";
-  return false;
-} else {
-  document.getElementById("errorbirthDate").innerHTML = "";
-  birthDate.classList.remove("borderRed");
-}
-
-//erreur input si quantité vide
-if (quantity.value === "") {
-  let error = document.getElementById("errorquantity");
-  error.innerHTML = "Veuillez saisir un nombre";
-  error.style.color = "red";
-  return false;
-} else {
-  document.getElementById("errorquantity").innerHTML = "";
-}
-
-// erreur ville
-
-if (radio === null) {
-  let error = document.getElementById("errorcity");
-  error.innerHTML = "Veuillez selectionner une ville";
-  error.style.color = "red";
-  return false;
-} else {
-  document.getElementById("errorcity").innerHTML = "";
-}
-
-  // check terms
-  if (checkTerms.checked === false) {
-    let error = document.getElementById("errorcheckbox");
-    error.innerHTML = "Veuillez accepter nos conditions d'utilisations";
+  // verification nom
+  if (verifName.exec(last.value) === null || last.length < 2) {
+    last.classList.add("borderRed");
+    let error = document.getElementById("errorlast");
+    error.innerHTML = "Veuillez saisir 2 caractères minimum";
     error.style.color = "red";
-    return false;
+    return formValid === false;
+  } else {
+    document.getElementById("errorlast").innerHTML = "";
+    last.classList.remove("borderRed");
+  }
+
+  // verification mail
+  let verifEmail = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+  if (verifEmail.exec(email.value) === null) {
+    email.classList.add("borderRed");
+    let error = document.getElementById("errormail");
+    error.innerHTML = "Veuillez entrez une adresse mail valide";
+    error.style.color = "red";
+    return formValid === false;
+  } else {
+    document.getElementById("errormail").innerHTML = "";
+    email.classList.remove("borderRed");
+  }
+
+  // verification date de naissance
+  if (!birthdate.value) {
+    birthdate.classList.add("borderRed");
+    let myError = document.getElementById("errorbirthdate");
+    myError.innerHTML = " Date de naissance est vide";
+    myError.style.color = "red";
+    return formValid === false;
+  } else {
+    document.getElementById("errorbirthdate").innerHTML = "";
+    birthdate.classList.remove("borderRed");
+  }
+
+  // verification tournoi
+  if (quantity.value === "" || isNaN(quantity.value)) {
+    quantity.classList.add("borderRed");
+    let myError = document.getElementById("errorquantity");
+    myError.innerHTML = " Veuillez entrer un nombre";
+    myError.style.color = "red";
+    return formValid === false;
+  } else {
+    document.getElementById("errorquantity").innerHTML = "";
+    quantity.classList.remove("borderRed");
+  }
+
+  //verification villes
+  if (
+    !(
+      location2[0].checked ||
+      location2[1].checked ||
+      location2[2].checked ||
+      location2[3].checked ||
+      location2[4].checked ||
+      location2[5].checked
+    )
+  ) {
+    let myError = document.getElementById("errorcity");
+    myError.innerHTML = " Veuillez selectionner une ville";
+    myError.style.color = "red";
+    return formValid === false;
+  } else {
+    document.getElementById("errorcity").innerHTML = "";
+  }
+
+  // verification terms
+  if (!checkTerms.checked) {
+    let error = document.getElementById("errorcheckbox");
+    error.innerHTML = "Veuillez accepter les conditions d'utilisations";
+    error.style.color = "red";
+    return formValid === false;
   } else {
     document.getElementById("errorcheckbox").innerHTML = "";
   }
-  return true
+  return (formValid = true);
 }
+
+// valide et confirmation
+function validate(event) {
+  event.preventDefault();
+  checkInputs();
+
+  if (formValid === true) {
+    form.style.display = "none";
+    closeBtnRed.style.display = "block";
+    submitBtn.style.display = "none";
+    confirmation.style.display = "flex";
+    closeBtnRed.addEventListener("click", closeModal);
+    return true;
+  }
+}
+
+form.addEventListener("submit", validate);
